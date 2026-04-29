@@ -1,6 +1,8 @@
 import express, { Application, NextFunction, Request, Response } from 'express';
+import swaggerUi from 'swagger-ui-express';
 import { SmsController } from './api/SmsController';
 import { buildSmsRouter } from './api/routes';
+import { openApiSpec } from './api/openapi';
 import { Logger } from './logging/Logger';
 
 export interface AppDeps {
@@ -14,6 +16,10 @@ export function createApp(deps: AppDeps): Application {
 
   app.get('/health', (_req, res) => res.json({ status: 'ok' }));
   app.use('/sms', buildSmsRouter(deps.smsController));
+
+  // OpenAPI spec + Swagger UI
+  app.get('/openapi.json', (_req, res) => res.json(openApiSpec));
+  app.use('/docs', swaggerUi.serve, swaggerUi.setup(openApiSpec));
 
   app.use((_req, res) => res.status(404).json({ error: 'Not Found' }));
 
