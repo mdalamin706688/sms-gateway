@@ -13,8 +13,8 @@ provider abstraction, reliability, and extensibility.
 docker compose up --build
 ```
 
-- `my-server`     : http://localhost:4000
-- `sms-provider`  : http://localhost:4001
+- `my-server`     : http://localhost:4000  (Swagger UI: http://localhost:4000/docs)
+- `sms-provider`  : http://localhost:4001  (Swagger UI: http://localhost:4001/docs)
 - Logs are written to `./logs/sms.log` on the host (mounted volume).
 
 ### Option B — Run each service in a terminal

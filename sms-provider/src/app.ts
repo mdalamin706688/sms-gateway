@@ -1,6 +1,8 @@
 import express, { Application, Request, Response, NextFunction } from 'express';
+import swaggerUi from 'swagger-ui-express';
 import { providerARouter } from './routes/providerA';
 import { providerBRouter } from './routes/providerB';
+import { openApiSpec } from './openapi';
 
 export function createApp(): Application {
   const app = express();
@@ -10,6 +12,10 @@ export function createApp(): Application {
 
   app.use('/provider-a', providerARouter);
   app.use('/provider-b', providerBRouter);
+
+  // OpenAPI spec + Swagger UI
+  app.get('/openapi.json', (_req, res) => res.json(openApiSpec));
+  app.use('/docs', swaggerUi.serve, swaggerUi.setup(openApiSpec));
 
   // 404
   app.use((_req, res) => res.status(404).json({ error: 'Not Found' }));
