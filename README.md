@@ -1,4 +1,4 @@
-# SMS Gateway — Senior Engineer Technical Test
+# SMS Gateway
 
 A two-microservice system, Node.js + TypeScript, demonstrating clean architecture,
 provider abstraction, reliability, and extensibility.
